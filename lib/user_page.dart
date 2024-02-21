@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 class UserPage extends StatelessWidget {
   final List<dynamic> userList;
   final int pageIndex;
+  final int perPage;
 
-  const UserPage({Key? key, required this.userList, required this.pageIndex}) : super(key: key);
+  const UserPage({Key? key, required this.userList, required this.pageIndex, required this.perPage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final int start = (pageIndex - 1) * 6;
-    final int end = pageIndex * 6;
+    final int start = (pageIndex - 1) * perPage;
+    final int end = pageIndex * perPage;
     final List<dynamic> pageData = userList.sublist(start, end < userList.length ? end : userList.length);
 
     return Container(

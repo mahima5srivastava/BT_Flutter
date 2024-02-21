@@ -13,6 +13,7 @@ class _UserListState extends State<UserList> {
   List<dynamic> userList = [];
   int currentPage = 1;
   int totalPages = 1;
+  int perPage = 0;
 
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _UserListState extends State<UserList> {
       setState(() {
         userList.addAll(data['data']);
         totalPages = data['total_pages'];
+        perPage = data['per_page'];
       });
     } else {
       throw Exception('Failed to load data');
@@ -49,13 +51,13 @@ class _UserListState extends State<UserList> {
                 setState(() {
                   currentPage = page + 1;
                 });
-                if (currentPage == totalPages && userList.length < totalPages * 6) {
+                if (currentPage == totalPages && userList.length < totalPages * perPage) {
                   fetchData();
                 }
               },
               itemCount: totalPages,
               itemBuilder: (context, index) {
-                return UserPage(userList: userList, pageIndex: index + 1);
+                return UserPage(userList: userList, pageIndex: index + 1, perPage: perPage,);
               },
             ),
           ),
